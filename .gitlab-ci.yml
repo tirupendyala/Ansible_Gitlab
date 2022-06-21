@@ -1,0 +1,26 @@
+stages:
+  - run
+  - destroy
+
+image:
+  name: registry.gitlab.com/torese/docker-ansible
+
+variables:
+    ANSIBLE_HOST_KEY_CHECKING: 'false'
+    ANSIBLE_FORCE_COLOR: 'true'
+    ANSIBLE_PYTHON_INTERPRRTER: /usr/bin/python3
+
+before_script:
+  - yum install -y python3
+  - ansible --version
+
+run:
+  stage: run
+  script:
+    - ansible-playbook main.yml --vault-password-file=password.txt
+   
+#destroy:
+#  stage: destroy
+#  script:
+#    - ansible-playbook destroy --auto-approve
+#  when: manual

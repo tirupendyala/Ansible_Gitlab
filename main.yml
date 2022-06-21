@@ -1,0 +1,28 @@
+---
+  - name: Testing Ansible with GitLab
+    hosts: localhost
+    become: yes
+    gather_facts: false
+    tasks:
+      - name: Installing httpd using yum
+        yum:
+          name: httpd
+          state: present
+      - name: wget pkg installing
+        yum:
+          name: wget
+          state: present
+      - name: Creating a new text file
+        shell: |
+            whoami >> user.txt
+            cat /etc/os-release >> user.txt
+            ping www.ovgu.de -w 10 >> ping.txt
+ #     - name: simple task to launch ec2 instance with default values
+  #      ec2:
+  #        instance_type: t2.micro
+  #        image: ami-038b3df3312ddf25d
+  #        region: us-east-1
+  #        connection: local  
+  #      tags:
+  #        - my_ec2
+         
